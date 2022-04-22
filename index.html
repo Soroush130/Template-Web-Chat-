@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Chat</title>
+
+    <style>
+        .html{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            height: 100%;
+            width: 100%;
+        }
+
+        .url-friend{
+            text-decoration: none;
+            color: black;
+        }
+
+        ul li{
+            margin-top: 15px;
+        }
+
+        .messages{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ms{
+            align-self: flex-end;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .message{
+            width: 500px;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.692);
+            color: white;
+        }
+
+        #send_message:hover{
+            cursor: pointer;
+        }
+
+        #show_emoji:hover{
+            cursor: pointer;
+        }
+
+        .emojis{
+            display: none;
+        }
+        .emojis-active{
+            display: block;
+            position: absolute;
+            bottom: 60px;
+            right: 10px;
+            z-index: 22;
+            border: 1px solid;
+            background-color: darkgrey;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .emoji:hover{
+            cursor: pointer;
+        }
+
+        #message_box{
+            height: 35px;
+            border-top: none;
+            border-right: none;
+        }
+
+        #message_box:focus{
+            outline: none;
+        }
+
+        .messages::-webkit-scrollbar{
+            width: 12px;
+        } 
+        .messages::-webkit-scrollbar-track {
+            -webkit-box-shadow : inset 0 0 6px rgba(0,0,0,0.3); 
+            border-radius: 10px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow : inset 0 0 6px rgba(0,0,0,0.5); 
+            background-color: rgba(36, 35, 35, 0.651);
+        }
+
+        .box{
+            height: 650px;
+            position: relative;
+        }
+
+        .edit-message{
+            font-size: 22px;
+            text-decoration: none;
+            color: rgb(253, 253, 253);
+        }
+
+        
+    </style>
+
+  </head>
+  <body>
+    
+    <div class="container mt-5">
+
+        <div class="row d-flex justify-content-center align-content-center flex-row-reverse ">
+
+            <div class="col-md-9 box" style="border-left: 1px solid black;">
+
+                <div class="header-message-box d-flex justify-content-between align-items-center flex-row-reverse">
+
+                    <div class="friend-user d-flex flex-row-reverse justify-content-start align-items-center mt-2">
+
+                        <img src="profile.jpg" style="border-radius: 50%; width: 45px; height: 45px;" alt="">
+    
+                        <h5  style="margin-right: 10px;">soroush130</h5>
+    
+                    </div>
+
+                    <div class="follow-button">
+                        <button class="btn btn-primary" type="button" id="button-follow">Follow</button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="messages h-75" style="overflow-y: scroll;">
+                    
+                    <div class="d-flex m-2">
+
+                        <img src="profile.jpg" alt="" style="border-radius: 50%; width: 45px; height: 45px;">
+
+                        <p class="message d-flex flex-column">
+                            <a class=" d-block align-self-end edit-message" data-bs-toggle="collapse" href="#collapseExample1"
+                                                                role="button" aria-expanded="false" aria-controls="collapseExample1">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                          
+                            Hello World Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+                            
+                            <span class="d-block align-self-end">1:10 AM</span>
+                        </p>
+
+                        <div class="collapse" id="collapseExample1" >
+                            <div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex m-2 ms">
+
+                        <img src="profile.jpg" alt="" style="border-radius: 50%; width: 45px; height: 45px;">
+
+                        <p class="message d-flex flex-column">
+                            <a class=" d-block align-self-end edit-message" data-bs-toggle="collapse" href="#collapseExample2"
+                                                                role="button" aria-expanded="false" aria-controls="collapseExample2">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                          
+                            Hello World Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+                            
+                            <span class="d-block align-self-end">1:10 AM</span>
+                        </p>
+
+                        <div class="collapse" id="collapseExample2" >
+                            <div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex m-2 ms">
+
+                        <img src="profile.jpg" alt="" style="border-radius: 50%; width: 45px; height: 45px;">
+
+                        <p class="message d-flex flex-column">
+                            <a class=" d-block align-self-end edit-message" data-bs-toggle="collapse" href="#collapseExample3"
+                                                                role="button" aria-expanded="false" aria-controls="collapseExample3">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                          
+                            Hello World Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+                            
+                            <span class="d-block align-self-end">1:10 AM</span>
+                        </p>
+
+                        <div class="collapse" id="collapseExample3" >
+                            <div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex m-2">
+
+                        <img src="profile.jpg" alt="" style="border-radius: 50%; width: 45px; height: 45px;">
+
+                        <p class="message d-flex flex-column">
+                            <a class=" d-block align-self-end edit-message" data-bs-toggle="collapse" href="#collapseExample4"
+                                                                role="button" aria-expanded="false" aria-controls="collapseExample4">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                          
+                            Hello World Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                            Default value. The content is not clipped, and it may be rendered outside the content box.
+                            
+                            <span class="d-block align-self-end">1:10 AM</span>
+                        </p>
+
+                        <div class="collapse" id="collapseExample4" >
+                            <div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex m-2 ms">
+
+                        <img src="profile.jpg" alt="" style="border-radius: 50%; width: 45px; height: 45px;">
+
+                        <div class="message d-flex flex-column">
+
+                            <a class="d-block align-self-end edit-message" data-bs-toggle="collapse" href="#collapseExample5"
+                                                                role="button" aria-expanded="false" aria-controls="collapseExample5">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                          
+                            <p id="text_message">
+                                Hello World Default value. The content is not clipped, and it may be rendered outside the content box.
+
+                                Default value. The content is not clipped, and it may be rendered outside the content box.
+    
+                                Default value. The content is not clipped, and it may be rendered outside the content box.
+                            </p>
+                            
+                            <span class="d-block align-self-end">1:10 AM</span>
+                        </div>
+
+                        <div class="collapse" id="collapseExample5" >
+                            <div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="emojis" id="list_emojis">
+                    <div class="emoji" onclick="func_emoji(this)">&#128512</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128513</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128514</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128515</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128516</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128517</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128518</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128519</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128520</div>
+                    <div class="emoji" onclick="func_emoji(this)">&#128521</div>
+                </div>
+
+                <div class="new-message mt-3 d-flex justify-content-center">
+
+                    <input type="text" id="message_box" placeholder="Message ..." class="w-100">
+
+                    <i class="fa fa-send" id="send_message" style="font-size: 30px;"></i>
+                    <i class="fa fa-paperclip ms-2" id="show_emoji" style="font-size: 30px;"></i>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="search-box mt-3">
+                    <input type="text" class="form-control" placeholder="Search ...">
+                </div>
+                <div class="list-users-friends">
+                    <ul class="p-2">
+
+                        <li class="d-flex justify-content-start align-items-center">
+                            
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                            
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+
+                        </li>
+
+                        <li class="d-flex justify-content-start align-items-center">
+                        
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                        
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+                        
+                        </li>
+
+                        <li class="d-flex justify-content-start align-items-center">
+                        
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                        
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+                        
+                        </li>
+
+                        <li class="d-flex justify-content-start align-items-center">
+                        
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                        
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+                        
+                        </li>
+
+                        <li class="d-flex justify-content-start align-items-center">
+                        
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                        
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+                        
+                        </li>
+
+                        <li class="d-flex justify-content-start align-items-center">
+                        
+                            <img src="profile.jpg" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                        
+                            <a href="" class='url-friend' style="margin-left: 10px;">
+                                <h6>soroush130</h6>
+                            </a>
+                        
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        let send_message = document.querySelector("#send_message");
+        let message_box = document.querySelector("#message_box");
+        let messages = document.querySelector(".messages");
+
+        send_message.addEventListener('click', function (){
+            message(message_box.value);
+            message_box.value = "";
+            let scroll_height = messages.scrollHeight;
+            messages.scrollTo(0, scroll_height);
+        });
+
+
+        // create new message
+        function message(txt) {
+            
+            if (txt === null || txt === ""){console.log("input is empty");}
+            else{
+                let new_message = document.createElement('div');
+                new_message.className = 'd-flex m-2 ';
+                // new_message.className = 'd-flex m-2 ms';
+                
+                let img_author_message = document.createElement('img');
+                img_author_message.src = 'profile.jpg';
+                img_author_message.style.borderRadius = "50%";
+                img_author_message.style.width= '45px';
+                img_author_message.style.height= '45px';
+
+                let message = document.createElement('div');
+                message.className = 'message d-flex flex-column';
+                // message.innerHTML = txt;
+
+                let text_message = document.createElement('p');
+                text_message.id = 'text_message';
+                
+
+                let edit_message = document.createElement('a');
+                let id_message = '';
+                edit_message.className = 'd-block align-self-end edit-message';
+                edit_message.setAttribute('data-bs-toggle', 'collapse');
+                edit_message.setAttribute('href', '#collapseExample' + id_message);
+                edit_message.setAttribute('role','button');
+                edit_message.setAttribute('aria-expanded','false');
+                edit_message.setAttribute('aria-controls', 'collapseExample' + id_message);
+
+                let icon_edit_message = document.createElement('i');
+                icon_edit_message.className = 'fa fa-angle-down';
+
+
+
+                let data_message = document.createElement('span');
+                data_message.className = 'd-block align-self-end';
+
+                let div_collapse = document.createElement('div');
+                div_collapse.className = 'collapse';
+                div_collapse.id = 'collapseExample' + id_message
+                div_collapse.innerHTML = `<div class="card card-body">
+                                <a href="" id='chain'><i class="fa fa-chain"></i></a>
+                                <a href="" id='cog'><i class="fa fa-cog"></i></a>
+                                <a href="" id='copy'><i class="fa fa-copy"></i></a>
+                                <a href="" id='trash'><i class="fa fa-trash"></i></a>
+                            </div>`;
+
+                var data = new Date();
+                var hour = data.getHours();
+                var minute = data.getMinutes();            
+
+                if (hour <= 12){
+                    data_message.innerHTML = hour + ':' + minute + ' PM';
+                }else{
+                    data_message.innerHTML = hour + ':' + minute + ' AM';
+                };
+
+                new_message.appendChild(img_author_message);
+                new_message.appendChild(message);
+                message.appendChild(edit_message);
+                edit_message.appendChild(icon_edit_message);
+                text_message.innerHTML = txt;
+                message.appendChild(text_message)
+                message.appendChild(data_message);
+                new_message.appendChild(div_collapse);
+                messages.appendChild(new_message); 
+            };
+
+        };
+
+        let scroll_height = messages.scrollHeight;
+        messages.scrollTo(0, scroll_height);
+
+
+        message_box.focus();
+        message_box.onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                send_message.click();
+            }
+        };
+
+
+
+        let button_list_emoji = document.querySelector('#show_emoji');
+        var list_emojis = document.querySelector('#list_emojis');
+
+        function func_emoji(emoji) {
+            message_box.value += emoji.innerHTML
+        }
+
+        button_list_emoji.addEventListener('click', function(){
+            list_emojis.classList.toggle('emojis-active')
+        })
+
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
+   
+  </body>
+</html>
